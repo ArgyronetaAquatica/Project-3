@@ -5,24 +5,15 @@ using UnityEngine;
 public class SwarmMove : MonoBehaviour
 {
 
-    [SerializeField] Transform playerTransform = null;
-
-    Vector3 playerForward;
-
     bool enemyEncountered = false;
 
     GameObject enemy = null;
-
-    void Start()
-    {
-        playerForward = playerTransform.forward;
-    }
 
     void Update()
     {
         if (!enemyEncountered)
         {
-            transform.Translate(playerForward * Time.deltaTime);
+            transform.Translate(transform.forward * Time.deltaTime);
         }
         else
         {

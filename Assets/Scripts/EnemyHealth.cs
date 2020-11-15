@@ -7,9 +7,10 @@ public class EnemyHealth : MonoBehaviour
 
     public int health = 100;
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        UnityEngine.Debug.Log("enemy has been damaged");
+        health -= damage;
+        UnityEngine.Debug.Log(health);
     }
 
 }

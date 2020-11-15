@@ -13,7 +13,7 @@ public class SwarmDamage : MonoBehaviour
 
         if(enemyHealth != null)
         {
-            enemyHealth.TakeDamage();
+            enemyHealth.TakeDamage(10);
         }
     }
 
