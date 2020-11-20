@@ -5,29 +5,50 @@ using UnityEngine;
 public class SwarmMove : MonoBehaviour
 {
 
+    [SerializeField] float detectionRange = 5f;
+    [SerializeField] float swarmSpeed = 1.5f;
+    
     bool enemyEncountered = false;
+    GameObject enemy;
+    Rigidbody rb;
+    float enemyCheckTimer = 0f;
+    float enemyCheckTime = .25f;
 
-    GameObject enemy = null;
+    void Start()
+    {
+        rb = this.gameObject.GetComponent<Rigidbody>();
+    }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!enemyEncountered)
         {
-            transform.Translate(transform.forward * Time.deltaTime);
-        }
+            Vector3 moveDirection = transform.forward * swarmSpeed;
+            rb.AddForce(moveDirection);
+            enemyCheckTimer += Time.deltaTime;
+
+            if (enemyCheckTimer >= enemyCheckTime)
+            {
+                EnemyCheck();
+            }
+        } 
         else
         {
-            transform.position = enemy.transform.position;
+            UnityEngine.Debug.Log("Enemy Check Successful");
+            //stick to enemy
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void EnemyCheck()
     {
-        if(other.tag == "Enemy")
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
+        foreach (var hitCollider in hitColliders)
         {
-            UnityEngine.Debug.Log("Enemy found");
-            enemyEncountered = true;
-            enemy = other.gameObject;
+            if (hitCollider.gameObject.tag == "Enemy")
+            {
+                enemy = hitCollider.gameObject;
+                enemyEncountered = true;
+            }
         }
     }
 

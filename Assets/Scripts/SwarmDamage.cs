@@ -5,6 +5,9 @@ using UnityEngine;
 public class SwarmDamage : MonoBehaviour
 {
 
+    public int damageMax = 10;
+    public float timerMax = 3f;
+    
     void OnTriggerEnter(Collider other)
     {
         UnityEngine.Debug.Log("Bees encountered something");
@@ -13,7 +16,18 @@ public class SwarmDamage : MonoBehaviour
 
         if(enemyHealth != null)
         {
-            enemyHealth.TakeDamage(10);
+            StartCoroutine(DamageSequence(enemyHealth));
+            UnityEngine.Debug.Log("Enemy encountered");
+        }
+    }
+
+    IEnumerator DamageSequence(EnemyHealth enemyHealth)
+    {
+        while (enemyHealth.health > 0)
+        {
+            enemyHealth.TakeDamage(damageMax);
+            UnityEngine.Debug.Log(enemyHealth.health);
+            yield return new WaitForSeconds(timerMax);
         }
     }
 

@@ -7,11 +7,21 @@ public class PlayerAbility : MonoBehaviour
 
     [SerializeField] GameObject swarmPrefab = null;
 
+    [SerializeField] int manaCost = 15;
+
+    PlayerMana playerManaComp;
+
+    void Start()
+    {
+        playerManaComp = this.gameObject.GetComponent<PlayerMana>();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && playerManaComp.playerMana >= manaCost)
         {
             SpawnSwarm();
+            playerManaComp.SubtractMana(manaCost);
         }
     }
 
