@@ -8,6 +8,7 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] GameObject swarmPrefab = null;
     [SerializeField] ParticleSystem swarmBurst = null;
 
+    [SerializeField] float swarmLifespan = 15f;
     [SerializeField] int manaCost = 15;
     [SerializeField] float refreshTime = 1f;
 
@@ -44,7 +45,7 @@ public class PlayerAbility : MonoBehaviour
     void SpawnSwarm()
     {
         GameObject newInstance = Instantiate(swarmPrefab, transform.position, transform.rotation);
-        Destroy(newInstance, 30f);
+        Destroy(newInstance, swarmLifespan);
     }
 
 }

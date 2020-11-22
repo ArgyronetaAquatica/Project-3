@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f00bc40ad67a234f9a4b25acb833783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 10
+  detectionRange: 5
   swarmSpeed: 5
 --- !u!54 &3300995959029520642
 Rigidbody:
