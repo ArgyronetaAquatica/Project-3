@@ -13,6 +13,10 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        if (health <= 0)
+        {
+            health = 0;
+        }
         UnityEngine.Debug.Log(health);
         enemyHealthSlider.value = health;
     }

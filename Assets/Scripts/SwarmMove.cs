@@ -21,6 +21,7 @@ public class SwarmMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (!enemyEncountered)
         {
             Vector3 moveDirection = transform.forward * swarmSpeed;
@@ -34,8 +35,19 @@ public class SwarmMove : MonoBehaviour
         } 
         else
         {
-            UnityEngine.Debug.Log("Enemy Check Successful");
-            //stick to enemy
+            //UnityEngine.Debug.Log("Enemy Check Successful");
+            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            if (enemyHealth.health > 0)
+            {
+                if (Mathf.Abs(enemy.transform.position.x - this.transform.position.x) > .2 || Mathf.Abs(enemy.transform.position.z - this.transform.position.z) > .2)
+                {
+                    MoveTowards(enemy);
+                }
+            } 
+            else
+            {
+                enemyEncountered = false;
+            }
         }
     }
 
@@ -46,10 +58,23 @@ public class SwarmMove : MonoBehaviour
         {
             if (hitCollider.gameObject.tag == "Enemy")
             {
-                enemy = hitCollider.gameObject;
-                enemyEncountered = true;
+                EnemyHealth enemyHealth = hitCollider.gameObject.GetComponent<EnemyHealth>();
+                if (enemyHealth.health > 0)
+                {
+                    enemy = hitCollider.gameObject;
+                    enemyEncountered = true;
+                }
             }
         }
+    }
+
+    void MoveTowards(GameObject target)
+    {
+        Vector3 direction = target.transform.position - this.transform.position;
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, 1, 0f);
+        Quaternion rotation = Quaternion.LookRotation(newDirection);
+        rb.MoveRotation(rotation);
+        rb.AddForce(transform.forward);
     }
 
 }

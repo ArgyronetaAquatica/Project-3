@@ -18,10 +18,18 @@ public class PlayerAbility : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && playerManaComp.playerMana >= manaCost)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            SpawnSwarm();
-            playerManaComp.SubtractMana(manaCost);
+            if (playerManaComp.playerMana >= manaCost)
+            {
+                SpawnSwarm();
+                playerManaComp.SubtractMana(manaCost);
+            } else if (playerManaComp.manaPackReserve > 0)
+            {
+                playerManaComp.ReEquipMana();
+                SpawnSwarm();
+                playerManaComp.SubtractMana(manaCost);
+            }
         }
     }
 
