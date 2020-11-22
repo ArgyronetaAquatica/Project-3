@@ -13,6 +13,8 @@ public class PlayerMana : MonoBehaviour
     [SerializeField] Slider manaSlider = null;
     [SerializeField] Text manaPackText = null;
 
+    [SerializeField] AudioClip refillSound = null;
+
     public void SubtractMana(int manaAmount)
     {
         playerMana -= manaAmount;
@@ -32,6 +34,7 @@ public class PlayerMana : MonoBehaviour
             playerMana = 100;
             manaPackReserve -= 1;
             manaPackText.text = manaPackReserve.ToString();
+            AudioHelper.PlayClip2D(refillSound, 1f);
         }
     }
 
