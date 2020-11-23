@@ -41,7 +41,6 @@ public class SwarmDamage : MonoBehaviour
             int damageAmount = Random.Range(damageMin, damageMax);
             float timerAmount = Random.Range(timerMin, timerMax);
             enemyHealth.TakeDamage(damageAmount);
-            //UnityEngine.Debug.Log(enemyHealth.health);
             yield return new WaitForSeconds(timerAmount);
         }
         swarmDisperse.Disperse();

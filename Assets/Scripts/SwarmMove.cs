@@ -59,7 +59,7 @@ public class SwarmMove : MonoBehaviour
             if (hitCollider.gameObject.tag == "Enemy")
             {
                 EnemyHealth enemyHealth = hitCollider.gameObject.GetComponent<EnemyHealth>();
-                if (enemyHealth.health > 0)
+                if (enemyHealth != null && enemyHealth.health > 0)
                 {
                     enemy = hitCollider.gameObject;
                     enemyEncountered = true;
